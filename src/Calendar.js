@@ -5,11 +5,6 @@ import NewEvent from "./NewEvent"
 const weekday = ['Sunday' ,'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 
-
-
-
-
-
 export default function Calendar( show) {
 
 
@@ -24,13 +19,6 @@ export default function Calendar( show) {
         )
 
 }
-
-function getDate() {
-
-
-}
-
-
 
 function calendar(d) {
 
@@ -78,15 +66,15 @@ function calendar(d) {
             
     
         for (let i = 0; i < dayOfTheWeek; i++) {
-            ret.push(<span class="bg-blue-500 h-16"></span>)
+            ret.push(<span class="bg-primary h-16"></span>)
         }
     
         for (let i = 0; i < numberOfDays; i++) {
             if (i == date.getDate() -1 ){
-                ret.push(<span class="bg-green-600 h-16" onClick={addEvent}>{i + 1}</span>)
+                ret.push(<span class="bg-accent h-16" onClick={addEvent}>{i + 1}</span>)
             }
             else 
-                ret.push(<span class="bg-blue-500 h-16">{i + 1}</span>)
+                ret.push(<span class="bg-primary h-16">{i + 1}</span>)
         }
         
         return ret;
@@ -98,11 +86,11 @@ function calendar(d) {
 
         
 
-        <div className="w-full h-fit flex flex-col">
+        <div className="w-full h-fit flex items-center justify-center flex-col">
 
-            <div className="w-3/4 h h-3/4 relative">
+            <div className="h-full aspect-square relative m-0">
 
-            <span class="inline-grid grid-cols-7 gap-4 w-full h-full border-4 border-black p-4">
+            <span class="inline-grid grid-cols-7 gap-4 w-full h-full border-4 border-primary p-4">
                 {CalendarfirstRow()}
                 {CalendarRow(d)}
             </span>
@@ -117,7 +105,7 @@ function calendar(d) {
 function CalendarfirstRow(){
     let ret = []
     for (let i = 0; i < weekday.length; i++) {
-        ret.push(<span class="bg-blue-500">{weekday[i]}</span>)
+        ret.push(<span class="bg-primary">{weekday[i]}</span>)
     }
     return ret;
 }
