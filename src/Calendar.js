@@ -80,6 +80,7 @@ function calendar(d) {
         return ret;
     }
     
+    //TODO: add styling to text 
 
     return(
         <>
