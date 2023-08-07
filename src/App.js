@@ -9,13 +9,11 @@ import ToggleLightDark from './ToggleLightDark';
 export default function App() {
 
   return (
-    <div className='App'>
-
+    <div className='w-screen h-screen flex flex-col'>
       <Header />
-      <ToggleLightDark />
-      <div className='w-screen h-screen flex items-center justify-center'> 
-
+      <div className="w-full h-full flex flex-row">
         <Calendar />
+        <ToggleLightDark />
       </div>
     </div>
 

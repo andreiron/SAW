@@ -7,7 +7,7 @@ function Header() {
 
         return (
             <>
-            <div className="bg-red-500 relative flex justify-between" >
+            <div className="bg-red-500 relative flex justify-between w-full" >
                 <Clock />
                 <User />
             </div>
