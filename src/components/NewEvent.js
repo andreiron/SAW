@@ -22,12 +22,12 @@ export default function NewEvent ({visible, setVisible}){
                 </div>
 
                 <form className="flex flex-col space-y-4 mt-6 p-4">
-                    <input type="text" className="input w-full max-w-xs" placeholder="Event Name" />
-                    <input type="text" className="input w-full max-w-xs" placeholder="Event Location" />
-                    <input type="text" className="input w-full max-w-xs" placeholder="Event Time" />
-                    <input type="text" className="input w-full max-w-xs" placeholder="Event Type" />
-                    <textarea type="text" className="input block w-full max-w-xs h-40 p-2" placeholder="Event Description" />
-                    <input id="data" type="date" className="input w-full max-w-xs" defaultValue={today()}/>
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Name" />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Location" />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Time" />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Type" />
+                    <textarea type="text" className="input block w-full max-w-xs h-40 p-2 hover:bg-primary hover:placeholder:text-black" placeholder="Event Description" />
+                    <input id="data" type="date" className="input w-full max-w-xs hover:bg-primary"  defaultValue={today()}/>
                     
                     <button className="btn btn-success" onClick={() => setVisible(false)}>Add Event</button>
                 </form>
