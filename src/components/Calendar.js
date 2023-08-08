@@ -111,7 +111,7 @@ function calendar(d) {
             </span>
             </div>
         </div>
-        <NewEvent visible={showEvent} />
+        <NewEvent visible={showEvent} setVisible={setshowEvent} />
         </>
 
     )
