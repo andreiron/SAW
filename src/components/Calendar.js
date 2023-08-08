@@ -2,6 +2,7 @@ import { useState,useEffect } from "react"
 import NewEvent from "./NewEvent"
 
 
+
 const weekday = ['Sunday' ,'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December']
 
@@ -22,12 +23,9 @@ export default function Calendar( props) {
 function calendar(d) {
 
     const [show, setshow] = useState(false)
+    const [showEvent, setshowEvent] = useState(false)
     const [date, setdate] = useState(new Date());
     let today = new Date();
-
-    function addEvent(e) {
-        setshow(true)
-    }
 
 
     function CalendarRow(d) {
@@ -46,7 +44,6 @@ function calendar(d) {
         let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);    
         let dayOfTheWeek = firstDay.getDay()
         let numberOfDays;
-        console.log(date)
         switch (date.getMonth() + 1) {
             case 1:
             case 3:
@@ -77,7 +74,7 @@ function calendar(d) {
     
         for (let i = 0; i < numberOfDays; i++) {
             if (i == date.getDate() -1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear() ){
-                ret.push(<span class="bg-accent h-28 flex justify-center rounded-md " onClick={addEvent}>{i + 1}</span>)
+                ret.push(<span class="bg-accent h-28 flex justify-center rounded-md " onClick={ () => setshowEvent(true)}  >{i + 1}</span>)
             }
             else 
                 ret.push(<span class="bg-primary h-28 flex justify-center rounded-md"> <p className="font-bold">{i + 1}</p></span>)
@@ -90,6 +87,7 @@ function calendar(d) {
 
     return(
         <>
+
         <div className="w-full h-full relative flex items-center justify-center flex-col">
             <div className="w- flex flex-row">
                 <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()))}>
@@ -113,7 +111,7 @@ function calendar(d) {
             </span>
             </div>
         </div>
-            <NewEvent show = {show}/>
+        <NewEvent visible={showEvent} />
         </>
 
     )
