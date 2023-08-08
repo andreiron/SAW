@@ -1,5 +1,6 @@
 import Clock from "./Clock";
 import User from "./User";
+import ToggleLightDark from "./ToggleLightDark";
 
 
 
@@ -7,9 +8,13 @@ function Header() {
 
         return (
             <>
-            <div className="bg-red-500 relative flex justify-between w-full" >
+            <div className=" flex justify-between w-full" >
                 <Clock />
-                <User />
+                <div className="flex items-center justify-center ">
+
+                    <ToggleLightDark />
+                    <User />
+                </div>
             </div>
             </>
         );

@@ -17,7 +17,7 @@ export default function ToggleLightDark() {
     }
 
     return(
-        <button className="btn btn-circle" onClick={handletoggle}>
+        <button className="btn btn-circle w-14 h-14" onClick={handletoggle}>
 
             {
                 !dark ? 
