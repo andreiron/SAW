@@ -12,7 +12,7 @@ export default function DisplaySelector({calType, setCalType}) {
 
     return(
         <>
-        <div className="tabs tabs-boxed w-fit ">
+        <div className="tabs tabs-boxed w-fit rounded-xl overflow-hidden">
             <a className="tab transition ease-in-out duration-200" onClick={ handleClick}>Day</a> 
             <a className="tab transition ease-in-out duration-200" onClick={ handleClick }>Week</a> 
             <a className="tab font-extrabold bg-accent transition ease-in-out duration-200" onClick={ handleClick}>Month</a>

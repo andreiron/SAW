@@ -57,6 +57,7 @@ module.exports = {
         "dark",
         "cupcake",
         "forest",
-        "aqua"]
+        "aqua",
+        "business"]
   },
 }

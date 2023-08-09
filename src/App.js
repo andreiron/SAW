@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './components/Header'
 import CalendarMonth from './components/CalendarMonth'
 import CalendarWeek from './components/CalendarWeek'
+import CalendarDay from './components/CalendarDay'
 
 import './App.css';
 import ToggleLightDark from './components/ToggleLightDark';
@@ -22,7 +23,7 @@ export default function App() {
       case 'week':
         return <CalendarWeek />
       case 'day':
-        return <>day</>
+        return <CalendarDay />
       default:
         return <>month</>
     }

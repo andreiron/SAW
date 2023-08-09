@@ -1,52 +1,56 @@
 import { useState,useEffect } from "react"
 import NewEvent from "./NewEvent"
+import { today } from "../utils/funz"
 
 
 
 const weekday = ['Sunday' ,'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December']
 
-//TODO: add functionality to numbers of days in week
 
-export default function Calendar() {
+export default function Calendar( props) {
 
+    const [msg, setmsg] = useState('')
+
+
+    const [show, setshow] = useState(false)
     const [showEvent, setshowEvent] = useState(false)
     const [date, setdate] = useState(new Date());
-
+    
         return(
             <>
-            {calendar()}
+            {calendar(msg)}
             </>
         )
 
     function calendar(d) {
 
-        let today = new Date();
+
+        //TODO: add styling to text 
+
         return(
             <>
 
             <div className="w-full h-full relative flex items-center justify-center flex-col">
                 <div className="w- flex flex-row">
-                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()))}>
+                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1))}> 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    {months[date.getMonth()]}
-                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()))}>
+                    {date.getDate() + ' ' + months[date.getMonth()]}
+                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
 
                 </div>
-                <div className="h-full w-full m-0 flex flex-col ">
-                    <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-30 p-4">
-                        {CalendarfirstRow()}
+                <div className="h-full w-full m-0 p-4">
+                    <span class="bg-primary rounded-md flex justify-center h-full font-extrabold "> 
+                        {weekday[(date.getDate() +1 )% 7 ] }
                     </span>
-                    <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-full p-4">
-                        {CalendarRow(d)}
-                    </span>
+                    {calendarDay()}
                 </div>
             </div>
             <NewEvent visible={showEvent} setVisible={setshowEvent} />
@@ -54,46 +58,15 @@ export default function Calendar() {
 
         )
 
-
-    }
-
-
-    function CalendarRow(d){
-
-        useEffect(() => {
-            if (d == ''){
-                setdate(new Date());
-            }
-            else {
-                setdate(new Date(d));
-            }
-
-
-        }, [d]);
-
-
-        let ret = []
-
-
-        for (let i = 0; i < 7; i++) {
-            ret.push(<span class="bg-primary rounded-md flex justify-center "> ciao </span>)
         }
 
+        function calendarDay(){
 
+            let ret = []
+            
 
-        return ret
-    }
-
-
-
-
-
-    function CalendarfirstRow(){
-        let ret = []
-        for (let i = 0; i < weekday.length; i++) {
-            ret.push(<span class="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
+            return ret
         }
-        return ret;
-    }
 
+    
 }
