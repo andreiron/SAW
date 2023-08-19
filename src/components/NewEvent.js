@@ -4,6 +4,12 @@ import {today} from "../utils/funz"
 
 
 export default function NewEvent ({visible, setVisible}){
+    const [name, setName] = useState("")
+    const [location, setLocation] = useState("")
+    const [time, setTime] = useState("")
+    const [type, setType] = useState("")
+    const [description, setDescription] = useState("")
+    const [date, setDate] = useState()
 
     if (!visible) return null
 
@@ -20,16 +26,35 @@ export default function NewEvent ({visible, setVisible}){
                     </button>
                 </div>
 
-                <form className="flex flex-col space-y-4 mt-6 p-4 ">
-                    <input type="text" className="input w-full max-w-xs bg-base-100 hover:bg-primary hover:placeholder:text-black" placeholder="Event Name" />
-                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Location" />
-                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Time" />
-                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Type" />
-                    <textarea type="text" className="input block w-full max-w-xs h-40 p-2 hover:bg-primary hover:placeholder:text-black" placeholder="Event Description" />
-                    <input id="data" type="date" className="input w-full max-w-xs hover:bg-primary"  defaultValue={today()}/>
+                <div className="flex flex-col space-y-4 mt-6 p-4 ">
+                    <input type="text" className="input w-full max-w-xs bg-base-100 hover:bg-primary hover:placeholder:text-black" placeholder="Event Name" 
+                        value={name} onChange={(e) => setName(e.target.value)}
+                    />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Location"
+                        value={location} onChange={(e) => setLocation(e.target.value)}
+                    />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Time" 
+                        value={time} onChange={(e) => setTime(e.target.value)}
+                    />
+                    <input type="text" className="input w-full max-w-xs hover:bg-primary hover:placeholder:text-black" placeholder="Event Type" 
+                        value={type} onChange={(e) => setType(e.target.value)}
+                    />
+                    <textarea type="text" className="input block w-full max-w-xs h-40 p-2 hover:bg-primary hover:placeholder:text-black" placeholder="Event Description"
+                        value={description} onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <input id="data" type="date" className="input w-full max-w-xs hover:bg-primary"  defaultValue={today()}
+                        value={date} onChange={(e) => setDate(e.target.value)}
+                    />
                     
-                    <button className="btn btn-success" onClick={() => setVisible(false)}>Add Event</button>
-                </form>
+                    <button className="btn btn-success" onClick={() => console.log({
+                        name,
+                        location,
+                        time,
+                        type,
+                        description,
+                        date
+                    })}>Add Event</button>
+                </div>
             </div>
 
         </div>
