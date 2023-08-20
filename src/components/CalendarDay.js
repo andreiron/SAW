@@ -47,7 +47,6 @@ export default function Calendar( props) {
 
                 </div>
                 <div className="h-full w-full m-0 p-4">
-                    
                     {calendarDay()}
                 </div>
             </div>
@@ -62,14 +61,14 @@ export default function Calendar( props) {
 
             let ret = []
             if (date.toDateString() == today().toDateString())
-                ret.push(<span className="bg-accent rounded-md flex justify-center h-full font-extrabold text-xl"> 
-                            {weekday[date.getDay()]}
-                        </span>)
+                ret.push(<div className="bg-primary rounded-md flex justify-center h-full w-full "> 
+                            <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+                        </div>)
             else 
                 ret.push(
-                    <span class="bg-primary rounded-md flex justify-center h-full font-extrabold text-xl"> 
-                        {weekday[(date.getDate() +1 )% 7 ] }
-                    </span>
+                        <div className="bg-primary rounded-md flex justify-center h-full w-full "> 
+                            <p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+                        </div>
                 )   
             return ret
 
