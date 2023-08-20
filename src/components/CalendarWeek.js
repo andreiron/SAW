@@ -24,7 +24,7 @@ export default function Calendar() {
         return(
             <>
 
-            <div className="w-full h-full relative flex items-center justify-center flex-col">
+            <div className="w-full h-full relative flex items-center justify-center flex-col mt-2 ">
                 <div className="w- flex flex-row">
                     <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7 ))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -40,7 +40,7 @@ export default function Calendar() {
 
                 </div>
                 <div className="h-full w-full m-0 flex flex-col ">
-                    <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-full p-4">
+                    <span className="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-full p-4">
                         {CalendarRow(date)}
                     </span>
                 </div>
@@ -86,8 +86,8 @@ export default function Calendar() {
         for (let i = 0; i < 7; i++) {
             if (weekday[i] == weekday[today().getDay()] && sunday.getDate() + i == today().getDate() && today().getMonth() == sunday.getMonth() && today().getFullYear() == sunday.getFullYear() ){
                 ret.push(
-                    <div className="bg-primary rounded-md flex justify-center "> 
-                        <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-1">
+                    <div className="bg-secondary rounded-md flex justify-center "> 
+                        <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
                             {(sunday.getDate() + i) <=  numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i)%numberOfDays)  } 
                         </p>
                     </div>
@@ -95,7 +95,7 @@ export default function Calendar() {
             }
             else 
                 ret.push(
-                    <div className="bg-primary rounded-md flex justify-center "> 
+                    <div className="bg-secondary rounded-md flex justify-center "> 
                         <p className="rounded-lg flex justify-center items-center text-xl h-fit w-full m-1 p-1">
                             {(sunday.getDate() + i) <=  numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i)%numberOfDays)  } 
                         </p>
@@ -113,7 +113,7 @@ export default function Calendar() {
     function CalendarfirstRow(){
         let ret = []
         for (let i = 0; i < weekday.length; i++) {
-            ret.push(<span class="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
+            ret.push(<span className="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
         }
         return ret;
     }

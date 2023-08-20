@@ -34,7 +34,7 @@ export default function App() {
   return (
     <>
 
-    <div className='w-screen h-screen flex flex-col'>
+    <div className='w-screen h-screen flex flex-col overflow-hidden'>
       <Header />
       <div className="flex justify-center">
         <DisplaySelector calType={calType} setCalType={setCalType} />

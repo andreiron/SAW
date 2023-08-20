@@ -11,11 +11,11 @@ module.exports = {
         {
           night: {
           
-            "primary": "#4B6991",
+            "primary": "#233CBC",
                      
-            "secondary": "#251D13",
+            "secondary": "#130690",
                      
-            "accent": "#2977D6",
+            "accent": "#7B8DF7",
                      
             "neutral": "#6C6C6C",
                      
@@ -58,6 +58,7 @@ module.exports = {
         "cupcake",
         "forest",
         "aqua",
-        "business"]
+        "business",
+        "coffee"]
   },
 }

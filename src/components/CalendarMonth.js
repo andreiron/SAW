@@ -32,8 +32,7 @@ export default function Calendar(props) {
 
         return (
             <>
-
-                <div className="w-full h-full relative flex items-center justify-center flex-col">
+                <div className="w-full h-full relative flex items-center justify-center flex-col mt-2">
                     <div className="w- flex flex-row">
                         <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()))}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -49,10 +48,10 @@ export default function Calendar(props) {
 
                     </div>
                     <div className="h-full w-full m-0 flex flex-col ">
-                        <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-30 p-4">
+                        <span className="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-30 p-4">
                             {CalendarfirstRow()}
                         </span>
-                        <span class="inline-grid grid-cols-7 gap-2 w-full h-full p-4">
+                        <span className="inline-grid grid-cols-7 gap-2 w-full h-full p-4">
                             {CalendarRow(d)}
                         </span>
                     </div>
@@ -105,14 +104,14 @@ export default function Calendar(props) {
 
 
         for (let i = 0; i < dayOfTheWeek; i++) {
-            ret.push(<span class="bg-primary rounded-md"></span>)
+            ret.push(<span className="bg-secondary rounded-md"></span>)
         }
 
         for (let i = 0; i < numberOfDays; i++) {
             if (i == date.getDate() - 1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
                 ret.push(
-                    <div className="bg-primary rounded-md flex justify-center " onClick={() => setshowEvent(true)} > 
-                        <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-1">
+                    <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} > 
+                        <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
                             {i + 1}
                         </p>
                     </div>
@@ -121,7 +120,7 @@ export default function Calendar(props) {
             else
 
             ret.push(
-                <div className="bg-primary rounded-md flex justify-center " onClick={() => setshowEvent(true)} > 
+                <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} > 
                     <p className=" rounded-lg flex justify-center items-center h-fit w-full p-1">
                         {i + 1}
                     </p>
@@ -135,7 +134,7 @@ export default function Calendar(props) {
     function CalendarfirstRow() {
         let ret = []
         for (let i = 0; i < weekday.length; i++) {
-            ret.push(<span class="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
+            ret.push(<span className="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
         }
         return ret;
     }

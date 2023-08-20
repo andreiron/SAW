@@ -5,7 +5,7 @@ export default function ToggleLightDark() {
     const [click, setclick] = useState(false)
     function handletoggle(e) {
         if (click) {
-            document.documentElement.setAttribute('data-theme', 'business')
+            document.documentElement.setAttribute('data-theme', 'night')
         }
         else {
             document.documentElement.setAttribute('data-theme', 'day')

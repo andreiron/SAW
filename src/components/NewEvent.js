@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import {today} from "../utils/funz"
+import { db } from "../firebase";
+import { collection } from "firebase/firestore";
+import { doc, setDoc, addDoc } from "firebase/firestore"; 
+import { handler } from "daisyui";
 
 
 export default function NewEvent ({visible, setVisible}){
@@ -11,7 +15,16 @@ export default function NewEvent ({visible, setVisible}){
     const [description, setDescription] = useState("")
     const [date, setDate] = useState()
 
+
+
     if (!visible) return null
+
+    function handler(e) {
+        e.preventDefault()
+        
+        console.log(name)
+
+    }
 
 
     return (
@@ -46,14 +59,7 @@ export default function NewEvent ({visible, setVisible}){
                         value={date} onChange={(e) => setDate(e.target.value)}
                     />
                     
-                    <button className="btn btn-success" onClick={() => console.log({
-                        name,
-                        location,
-                        time,
-                        type,
-                        description,
-                        date
-                    })}>Add Event</button>
+                    <button className="btn btn-success" onClick={handler}>Add Event</button>
                 </div>
             </div>
 
@@ -61,3 +67,4 @@ export default function NewEvent ({visible, setVisible}){
 
     )
 }
+

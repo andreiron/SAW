@@ -6,7 +6,7 @@ export default function DisplaySelector({calType, setCalType}) {
         const ancors = document.querySelectorAll('a.tab')
         ancors.forEach(ancor => ancor.classList.remove('bg-accent'))
         ancors.forEach(ancor => ancor.classList.remove('text-black'))
-        ancors.forEach(ancor => ancor.classList.add('font-extrabold'))
+        ancors.forEach(ancor => ancor.classList.remove('font-extrabold'))
 
         setCalType(e.target.innerText.toLowerCase())
         e.target.classList.add('bg-accent')
