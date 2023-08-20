@@ -110,10 +110,10 @@ export default function Calendar(props) {
 
         for (let i = 0; i < numberOfDays; i++) {
             if (i == date.getDate() - 1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
-                ret.push(<span class="bg-accent flex justify-center rounded-md " onClick={() => setshowEvent(true)}  >{i + 1}</span>)
+                ret.push(<span class="bg-accent font-extrabold flex justify-center rounded-md " onClick={() => setshowEvent(true)}  >{i + 1}</span>)
             }
             else
-                ret.push(<span class="bg-primary flex justify-center rounded-md"> <p className="font-bold">{i + 1}</p></span>)
+                ret.push(<span class="bg-primary flex justify-center rounded-md"> {i + 1}</span>)
         }
 
         return ret;

@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react"
 import NewEvent from "./NewEvent"
 
+import { today } from "../utils/funz"
+
 
 
 const weekday = ['Sunday' ,'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -11,29 +13,26 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 export default function Calendar() {
 
     const [showEvent, setshowEvent] = useState(false)
-    const [date, setdate] = useState(new Date());
-
+    const [date, setdate] = useState(new Date())
         return(
             <>
-            {calendar()}
+            {calendar(date)}
             </>
         )
 
-    function calendar(d) {
-
-        let today = new Date();
+    function calendar() {
         return(
             <>
 
             <div className="w-full h-full relative flex items-center justify-center flex-col">
                 <div className="w- flex flex-row">
-                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()))}>
+                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7 ))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                         </svg>
                     </button>
                     {months[date.getMonth()]}
-                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()))}>
+                    <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -41,11 +40,8 @@ export default function Calendar() {
 
                 </div>
                 <div className="h-full w-full m-0 flex flex-col ">
-                    <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-30 p-4">
-                        {CalendarfirstRow()}
-                    </span>
                     <span class="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-full p-4">
-                        {CalendarRow(d)}
+                        {CalendarRow(date)}
                     </span>
                 </div>
             </div>
@@ -58,25 +54,41 @@ export default function Calendar() {
     }
 
 
-    function CalendarRow(d){
+    function CalendarRow(){
 
-        useEffect(() => {
-            if (d == ''){
-                setdate(new Date());
-            }
-            else {
-                setdate(new Date(d));
-            }
-
-
-        }, [d]);
 
 
         let ret = []
+        let sunday = findSunday(date)
 
+        let numberOfDays;
+        switch (date.getMonth() + 1) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                numberOfDays = 31
+                break
+            case 2:
+                if ((date.getFullYear() % 4) == 0)
+                    numberOfDays = 29
+                else
+                    numberOfDays = 28
+                break
+            default:
+                numberOfDays = 30
+                break;
+        }
 
         for (let i = 0; i < 7; i++) {
-            ret.push(<span class="bg-primary rounded-md flex justify-center "> ciao </span>)
+            if (weekday[i] == weekday[today().getDay()] && sunday.getDate() + i == today().getDate() && today().getMonth() == sunday.getMonth() && today().getFullYear() == sunday.getFullYear() ){
+                ret.push(<span class="bg-accent font-extrabold rounded-md flex justify-center "> {(sunday.getDate() + i) <=  numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i)%numberOfDays)  } </span>)
+            }
+            else 
+                ret.push(<span class="bg-primary rounded-md flex justify-center "> {(sunday.getDate() + i) <=  numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i)%numberOfDays)  } </span>)
         }
 
 
@@ -96,4 +108,10 @@ export default function Calendar() {
         return ret;
     }
 
+}
+
+function findSunday(date){
+    let dayOfTheWeek = date.getDay()
+    let ret = new Date(date.getFullYear(), date.getMonth(), date.getDate() - dayOfTheWeek)
+    return ret
 }
