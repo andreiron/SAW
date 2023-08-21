@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react"
 import NewEvent from "./NewEvent"
 import { today } from "../utils/funz"
+import { db } from "../firebase_setup/firebase"
+import { doc,getDoc,collection, getDocs } from "firebase/firestore"
 
 
 
@@ -16,6 +18,20 @@ export default function Calendar( props) {
     const [show, setshow] = useState(false)
     const [showEvent, setshowEvent] = useState(false)
     const [date, setdate] = useState(new Date());
+    const [title, setTitle] = useState([])
+
+                
+    useEffect(() => {
+        (async () => { 
+            getEvent().then((data) => data.forEach(element => {
+            setTitle( [...title, element.data().title])
+
+            })).catch((error) => console.log(error))
+        })()
+    },[])
+
+
+
     
         return(
             <>
@@ -67,8 +83,15 @@ export default function Calendar( props) {
 
         }
 
+        async function getEvent() {
+                        
+            const queryEvents = await getDocs(collection(db, "events"));
+            return queryEvents
+        }
+
         function calendarDay(){
 
+            
             let ret = []
             if (date.toDateString() == today().toDateString())
                 ret.push(<div className="bg-secondary rounded-md flex justify-center h-full w-full "> 
@@ -78,6 +101,14 @@ export default function Calendar( props) {
                 ret.push(
                         <div className="bg-secondary rounded-md flex justify-center h-full w-full "> 
                             <p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+                            <div className=" bg-primary flex flex-col w-full h-fit">
+                                {
+                                    title.map((t) => {
+                                        <p className="w-full h-40 bg-white "> {t} </p>
+
+                                    }  )
+                                }    
+                            </div>
                         </div>
                 )   
             return ret
