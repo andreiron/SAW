@@ -16,7 +16,7 @@ import NewEvent from './components/NewEvent';
 export default function App() {
   const [calType, setCalType] = useState('month');
 
-  function selectDisplay() {
+  const selectDisplay = () => {
     switch (calType) {
       case 'month':
         return <CalendarMonth />
@@ -30,19 +30,20 @@ export default function App() {
   }
 
 
-//TODO frame calendar
+  //TODO div per dimensione variabile
   return (
     <>
-
-    <div className='w-screen h-screen flex flex-col overflow-hidden'>
-      <Header />
-      <div className="flex justify-center">
-        <DisplaySelector calType={calType} setCalType={setCalType} />
+      <div className='w-screen h-screen flex flex-col overflow-hidden'>
+        <div className='w-full h-[10vh] '>
+          <Header />
+        </div>
+        <div className="flex justify-center">
+          <DisplaySelector calType={calType} setCalType={setCalType} />
+        </div>
+        <div className="w-full h-full mt-2">
+          {selectDisplay(calType)}
+        </div>
       </div>
-      <div className="w-full h-full mt-2">
-        {selectDisplay(calType)}
-      </div>
-    </div>
     </>
 
   )

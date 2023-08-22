@@ -4,11 +4,11 @@ import ToggleLightDark from "./ToggleLightDark";
 
 
 
-function Header() {    
+function Header() {
 
-        return (
-            <>
-            <div className=" flex justify-between w-full" >
+    return (
+        <>
+            <div className=" flex justify-between w-full h-full" >
                 <Clock />
                 <div className="flex items-center justify-center ">
 
@@ -16,9 +16,9 @@ function Header() {
                     <User />
                 </div>
             </div>
-            </>
-        );
-    
+        </>
+    );
+
 }
 
 export default Header;
