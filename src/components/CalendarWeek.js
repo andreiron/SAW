@@ -79,7 +79,7 @@ function calendarRow(date) {
 function calendarfirstRow() {
     let ret = []
     for (let i = 0; i < weekday.length; i++) {
-        ret.push(<span className="bg-primary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
+        ret.push(<span className="bg-secondary h-10 flex justify-center rounded-full items-center ">{weekday[i]}</span>)
     }
     return ret;
 }
@@ -90,19 +90,25 @@ function calendar(setdate, date, showEvent, setshowEvent) {
     return <>
 
         <div className="w-full h-full relative flex items-center justify-center flex-col mt-2 ">
-            <div className="w- flex flex-row">
-                <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7))}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                    </svg>
-                </button>
-                {months[date.getMonth()]}
-                <button className=" flex justify-center items-center" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7))}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
+            <div className="flex flex-row w-full justify-around ">
 
+                <div className="bg-primary flex flex-row justify-center items-center rounded-md">
+                    <button className=" btn btn-primary flex justify-center items-center px-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7))}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    {months[date.getMonth()]}
+                    <button className=" btn btn-primary flex justify-center items-center px-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7))}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+
+                </div>
+                <div className="flex ">
+                    <button className="btn btn-primary" onClick={() => setdate(today())}> Today </button>
+                </div>
             </div>
             <div className="h-full w-full m-0 flex flex-col ">
                 <span className="inline-grid grid-cols-7 grid-rows-1 gap-2 w-full h-30 p-4">
@@ -112,6 +118,7 @@ function calendar(setdate, date, showEvent, setshowEvent) {
                     {calendarRow(date, setshowEvent)}
                 </span>
             </div>
+
         </div>
         <NewEvent visible={showEvent} setVisible={setshowEvent} />
     </>

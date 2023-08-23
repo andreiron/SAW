@@ -19,10 +19,14 @@ export default function Calendar(props) {
     const [load, setLoad] = useState(false)
 
     useEffect(() => {
+        if (load)
+            return
 
         console.log('useEffect')
+
         setTitle([])
         setLoad(false)
+
         getEvent().then((events) => {
             events.forEach((event) => {
                 setTitle(title => [...title, event.title])
@@ -49,7 +53,7 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
         <div className="w-full h-full relative flex items-center justify-center flex-col mt-2">
             <div className="flex flex-row w-full justify-around ">
                 <div className=" bg-primary flex flex-row justify-center items-center rounded-md">
-                    <button className=" btn btn-primary flex justify-center items-center pl-1 pr-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1))}>
+                    <button className=" btn btn-primary flex justify-center items-center px-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 bg-inherit">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                         </svg>
@@ -57,7 +61,7 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
                     <p className="bg-primary">
                         {date.getDate() + ' ' + months[date.getMonth()]}
                     </p>
-                    <button className=" btn btn-primary flex justify-center items-center pl-1 pr-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1))}>
+                    <button className="btn btn-primary flex justify-center items-center px-1 m-0" onClick={() => setdate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1))}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 bg-inherit">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -65,8 +69,8 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
 
                 </div>
 
-                <div className="flex ">
-                    <button className="btn btn-primary" onClick="">New Event</button>
+                <div className="flex">
+                    <button className="btn btn-primary" onClick={() => setdate(today())}> Today </button>
                 </div>
             </div>
 
@@ -82,9 +86,6 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
 
 function calendarDay({ date, title, load }) {
 
-    title.forEach((t) => {
-        console.log(t)
-    })
 
     let ret = []
     if (date.toDateString() == today().toDateString())
@@ -117,4 +118,10 @@ function calendarDay({ date, title, load }) {
         </>
     )
 
+}
+
+function findToday({ setdate }) {
+    return () => {
+        setdate(today())
+    }
 }

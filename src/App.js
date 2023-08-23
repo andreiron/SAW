@@ -3,6 +3,7 @@ import Header from './components/Header'
 import CalendarMonth from './components/CalendarMonth'
 import CalendarWeek from './components/CalendarWeek'
 import CalendarDay from './components/CalendarDay'
+import Settings from './components/Settings'
 
 import './App.css';
 import ToggleLightDark from './components/ToggleLightDark';
@@ -40,8 +41,13 @@ export default function App() {
         <div className="flex justify-center">
           <DisplaySelector calType={calType} setCalType={setCalType} />
         </div>
-        <div className="w-full h-full mt-2">
-          {selectDisplay(calType)}
+        <div className="flex flex-row w-full h-[85vh] justify-center">
+          <div className="w-[85vw] h-full mt-2">
+            {selectDisplay(calType)}
+          </div>
+          <div className="w-[15vw] h-full m-y-2 pr-2 rounded-sm">
+            <Settings />
+          </div>
         </div>
       </div>
     </>
