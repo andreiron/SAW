@@ -17,6 +17,7 @@ export default function Calendar(props) {
     const [showEvent, setshowEvent] = useState(false)
     const [date, setdate] = useState(new Date());
 
+
     return (
         <>
             {calendar(setdate, date, showEvent, setshowEvent)}
@@ -82,6 +83,64 @@ function calendarRow(date, setshowEvent) {
 
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     let dayOfTheWeek = firstDay.getDay()
+
+
+
+    let ret = []
+
+
+    for (let i = 0; i < dayOfTheWeek; i++) {
+        ret.push(
+            <div className="bg-secondary bg-opacity-60 rounded-md flex justify-center ">
+
+                <p className="rounded-lg flex justify-center items-center h-fit w-full p-1">
+                    {(getNumberofDays(new Date(date.getFullYear(), date.getMonth() - 1)) + 1) - dayOfTheWeek + i}
+                </p>
+            </div>)
+    }
+
+    for (let i = 0; i < getNumberofDays(date); i++) {
+        if (i == date.getDate() - 1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
+            ret.push(
+                <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} >
+                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
+                        {i + 1}
+                    </p>
+                </div>
+            )
+        }
+        else
+
+            ret.push(
+                <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} >
+                    <p className=" rounded-lg flex justify-center items-center h-fit w-full p-1">
+                        {i + 1}
+                    </p>
+                </div>
+            )
+    }
+
+
+
+    let day = 1
+    let lastDay = new Date(date.getFullYear(), date.getMonth(), getNumberofDays(date)).getDay()
+    for (let i = lastDay + 1; i < 7; i++) {
+        console.log(months[date.getMonth()] + ' ' + i + ' ' + date.getDay())
+        ret.push(
+            <div className="bg-secondary bg-opacity-60 rounded-md flex justify-center ">
+
+                <p className="rounded-lg flex justify-center items-center h-fit w-full p-1">
+                    {day++}
+                </p>
+            </div>)
+    }
+
+    return ret.map((e) => e);
+}
+
+
+function getNumberofDays(date) {
+
     let numberOfDays;
 
     switch (date.getMonth() + 1) {
@@ -105,33 +164,5 @@ function calendarRow(date, setshowEvent) {
             break;
     }
 
-    let ret = []
-
-
-    for (let i = 0; i < dayOfTheWeek; i++) {
-        ret.push(<span className="bg-secondary rounded-md"></span>)
-    }
-
-    for (let i = 0; i < numberOfDays; i++) {
-        if (i == date.getDate() - 1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
-            ret.push(
-                <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} >
-                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
-                        {i + 1}
-                    </p>
-                </div>
-            )
-        }
-        else
-
-            ret.push(
-                <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} >
-                    <p className=" rounded-lg flex justify-center items-center h-fit w-full p-1">
-                        {i + 1}
-                    </p>
-                </div>
-            )
-    }
-
-    return ret.map((e) => e);
+    return numberOfDays
 }
