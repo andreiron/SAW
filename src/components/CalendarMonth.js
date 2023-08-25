@@ -103,7 +103,7 @@ function calendarRow(date, setshowEvent) {
         if (i == date.getDate() - 1 && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
             ret.push(
                 <div className="bg-secondary rounded-md flex justify-center " onClick={() => setshowEvent(true)} >
-                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
+                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl  h-fit w-full m-1 p-1">
                         {i + 1}
                     </p>
                 </div>

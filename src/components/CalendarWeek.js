@@ -53,7 +53,7 @@ function calendarRow(date) {
         if (weekday[i] == weekday[today().getDay()] && sunday.getDate() + i == today().getDate() && today().getMonth() == sunday.getMonth() && today().getFullYear() == sunday.getFullYear()) {
             ret.push(
                 <div className="bg-secondary rounded-md flex justify-center ">
-                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-1">
+                    <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-1">
                         {weekday[i] + ' ' + (sunday.getDate() + i) <= numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i) % numberOfDays)}
                     </p>
                 </div>

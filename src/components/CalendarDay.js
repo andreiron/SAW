@@ -90,7 +90,7 @@ function calendarDay({ date, title, load }) {
     let ret = []
     if (date.toDateString() == today().toDateString())
         ret.push(<div className="bg-secondary rounded-md flex justify-center h-full w-full ">
-            <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl text-base-300  h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+            <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
         </div>)
     else
         ret.push(

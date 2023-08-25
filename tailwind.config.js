@@ -13,9 +13,9 @@ module.exports = {
 
             "primary": "#A0AABA",
 
-            "secondary": "#D7D6E1",
+            "secondary": "#C8C8C8",
 
-            "accent": "#6B687F",
+            "accent": "#A698F3",
 
             "neutral": "#D2D2D2",
 
@@ -34,9 +34,9 @@ module.exports = {
           darkM: {
 
             'text': '#f6f3ee',
-            'base-100': '#04001e',
-            'primary': '#4730cd',
-            'secondary': '#130061',
+            'base-100': '#211f1f',
+            'primary': '#595E68',
+            'secondary': '#3F455D',
             'accent': '#8e7eeb',
             'neutral': '#04001e',
 
