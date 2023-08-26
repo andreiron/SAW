@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import NewEvent from "./NewEvent"
 import { today } from "../utils/funz"
-import { db, getEvent } from "../firebase_setup/firebase"
+import { db, getEvent } from "../firebase_setup/DBfirebase"
 import { doc, getDoc, collection, getDocs } from "firebase/firestore"
 
 

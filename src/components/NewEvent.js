@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { today } from "../utils/funz"
-import { db } from "../firebase_setup/firebase";
+import { db } from "../firebase_setup/DBfirebase";
 import { collection } from "firebase/firestore";
 import { doc, setDoc, addDoc } from "firebase/firestore";
 import { handler } from "daisyui";
-import { addEvent } from "../firebase_setup/firebase";
+import { addEvent } from "../firebase_setup/DBfirebase";
 
 
 export default function NewEvent({ visible, setVisible }) {
