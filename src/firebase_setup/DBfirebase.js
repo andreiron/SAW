@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getFirestore, collection, getDocs, addDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "./ConfigFirebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
@@ -27,7 +27,7 @@ const addEvent = async (title, location) => {
   console.log("Document written with ID: ", docRef2.id);
 }
 
-async function signInWithGoogle() {
+async function loginWithGoogle() {
   console.log('signing in with google')
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -50,6 +50,24 @@ async function signInWithGoogle() {
     });
 }
 
+async function loginWithEmail(email, password) {
+
+  await signInWithEmailAndPassword(auth, email, password)
+
+}
+
+async function createEmailAccount(email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      throw new Error(error)
+      // ..
+    });
+}
 
 export { getEvent, addEvent }
-export { signInWithGoogle }
+export { loginWithGoogle, loginWithEmail, createEmailAccount }
