@@ -66,6 +66,21 @@ export default function LoginForm({ setLogin }) {
         }
         ).catch((error) => {
             console.log(error)
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    addAlert('Email già in uso', alertarr, setAlertarr)
+                    break;
+                case 'auth/invalid-email':
+                    addAlert('Email non valida', alertarr, setAlertarr)
+                    break;
+                case 'auth/weak-password':
+                    addAlert('Password troppo debole (almeno 6 caratteri)', alertarr, setAlertarr)
+                    break;
+                default:
+                    addAlert(error.code, alertarr, setAlertarr)
+                    break;
+            }
+
         })
     }
 

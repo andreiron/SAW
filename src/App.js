@@ -40,7 +40,7 @@ export default function App() {
 
         !login ?
           <div className="inset-0 z-10 fixed bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center">
-            <LoginForm setLogin={setLogin} />
+            <LoginForm setLogin={setLogin} login={login} />
 
           </div>
 

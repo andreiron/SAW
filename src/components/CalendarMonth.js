@@ -125,7 +125,6 @@ function calendarRow(date, setshowEvent) {
     let day = 1
     let lastDay = new Date(date.getFullYear(), date.getMonth(), getNumberofDays(date)).getDay()
     for (let i = lastDay + 1; i < 7; i++) {
-        console.log(months[date.getMonth()] + ' ' + i + ' ' + date.getDay())
         ret.push(
             <div className="bg-secondary bg-opacity-60 rounded-md flex justify-center ">
 

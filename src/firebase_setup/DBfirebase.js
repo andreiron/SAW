@@ -53,20 +53,23 @@ async function loginWithGoogle() {
 async function loginWithEmail(email, password) {
 
   await signInWithEmailAndPassword(auth, email, password)
-
-}
-
-async function createEmailAccount(email, password) {
-  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       // ...
     })
-    .catch((error) => {
-      throw new Error(error)
-      // ..
-    });
+
+
+}
+
+async function createEmailAccount(email, password) {
+  await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+
 }
 
 export { getEvent, addEvent }
