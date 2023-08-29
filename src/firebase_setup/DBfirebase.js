@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { getFirestore, collection, getDocs, addDoc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, setDoc, doc, query, where } from "firebase/firestore";
 import { db, auth } from "./ConfigFirebase";
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 
@@ -54,14 +54,18 @@ const addUser = async ({ username, email, password }) => {
 }
 
 async function findUser(id) {
-	const docRef = doc(db, "users", id);
-	const docSnap = await getDoc(docRef);
+	console.log(id)
+	const q = query(collection(db, "users"), where("id", "==", id));
+	const docSnap = await getDocs(q);
 
-	if (docSnap.exists()) {
-		console.log("Document data:", docSnap.data());
-	} else {
-		console.log("No such document!");
-	}
+	const users = []
+
+	docSnap.forEach((doc) => {
+		users.push(doc.data());
+	});
+
+
+	return users[0].username
 
 }
 
@@ -120,9 +124,14 @@ async function delUser(user) {
 	});
 }
 
-async function getCredentials() {
-	return auth.currentUser
+function getCredentials() {
+	const user = auth.currentUser;
+	if (user != null) {
+		return user.uid
+	}
+	else {
+		return "no user logged in"
+	}
 }
-
 export { getEvent, addEvent }
 export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUser, getCredentials, delUser }

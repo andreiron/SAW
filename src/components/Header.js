@@ -12,7 +12,6 @@ function Header() {
                 <Clock />
                 <div className="flex items-center justify-center ">
 
-                    <ToggleLightDark />
                     <User />
                 </div>
             </div>
