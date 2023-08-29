@@ -89,27 +89,48 @@ function calendarDay({ date, title, load }) {
 
     let ret = []
     if (date.toDateString() == today().toDateString())
-        ret.push(<div className="bg-secondary rounded-md flex justify-center h-full w-full ">
-            <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
-        </div>)
+        ret.push(
+            <div className="bg-secondary rounded-md flex flex-col h-full w-full ">
+                <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+            </div>
+        )
     else
         ret.push(
             <div className="bg-secondary rounded-md flex flex-col h-full w-full ">
                 <p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
-                <div className=" bg-black flex flex-col w-full h-fit">
 
-                    {
-                        (!load ?
-                            <p className="w-full h-fit bg-slate-800 "> akjfnkjdf</p>
-                            :
-                            title.map((t) =>
-                                <p className="w-full h-fit bg-slate-400 "> {t} </p>
-                            )
-                        )
+                <div className='flex flex-row justify-around items-center w-full h-fit'>
 
-                    }
+                    <p className="bg-red-400">
+                        AM
+                    </p>
+
+                    <p className="bg-blue-400">
+                        PM
+                    </p>
 
                 </div>
+                <div className='flex flex-row justify-around items-center w-full h-full p-2'>
+
+                    <div className="grid grid-cols-2 grid-rows-12 flex-col w-1/2 h-full rounded-xl ">
+
+                        {
+                            //TODO: capire come usare griglia per dispaly eventi
+                        }
+
+
+                    </div>
+
+
+                    <div className="flex flex-col w-1/2 h-full ">
+
+
+                    </div>
+
+                </div>
+
+
+
             </div>
         )
     return (
@@ -125,3 +146,15 @@ function findToday({ setdate }) {
         setdate(today())
     }
 }
+
+
+// {
+//     (!load ?
+//         <p className="w-full h-fit  "> akjfnkjdf</p>
+//         :
+//         title.map((t) =>
+//             <p className="w-full h-fit  "> {t} </p>
+//         )
+//     )
+
+// }

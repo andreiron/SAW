@@ -2,7 +2,14 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        // Simple 8 row grid
+        '12': 'repeat(12, minmax(0, 1fr))',
+
+        // Complex site-specific row configuration
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

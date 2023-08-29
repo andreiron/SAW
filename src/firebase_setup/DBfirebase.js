@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getFirestore, collection, getDocs, addDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "./ConfigFirebase";
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
@@ -36,6 +36,12 @@ const addUser = async ({ username, email, password }) => {
 	}
 
 	let id = auth.currentUser.uid
+
+	if (username == "" || email == "" || password == "") {
+		throw new Error('empty fields')
+	}
+
+	console.log(username + "; " + email + "; " + password + "; " + id)
 
 	const docRef = await addDoc(collection(db, "users"), {
 		username,
@@ -104,9 +110,19 @@ async function createEmailAccount(email, password) {
 
 }
 
+async function delUser(user) {
+	await deleteUser(user).then(() => {
+		// User deleted.
+	}
+	).catch((error) => {
+		// An error ocurred
+		// ...
+	});
+}
+
 async function getCredentials() {
 	return auth.currentUser
 }
 
 export { getEvent, addEvent }
-export { loginWithGoogle, loginWithEmail, createEmailAccount }
+export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUser, getCredentials, delUser }
