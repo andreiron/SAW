@@ -19,7 +19,6 @@ export default function NewEvent({ visible, setVisible }) {
     const titleRef = useRef()
     const locationRef = useRef()
 
-
     if (!visible) return null
 
 

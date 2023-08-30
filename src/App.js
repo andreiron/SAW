@@ -13,20 +13,24 @@ import NewEvent from './components/NewEvent';
 import LoginForm from './components/LoginForm'
 
 
+//TODO: sistemare per telefono
 
 
 export default function App() {
 	const [calType, setCalType] = useState('month');
 	const [login, setLogin] = useState(false);
+	const [showEvent, setshowEvent] = useState(false);
+	const [hidden, setHidden] = useState(true);
+
 
 	const selectDisplay = () => {
 		switch (calType) {
 			case 'month':
-				return <CalendarMonth />
+				return <CalendarMonth visible={showEvent} setVisible={setshowEvent} />
 			case 'week':
-				return <CalendarWeek />
+				return <CalendarWeek visible={showEvent} setVisible={setshowEvent} />
 			case 'day':
-				return <CalendarDay />
+				return <CalendarDay visible={showEvent} setVisible={setshowEvent} />
 			default:
 				return <>month</>
 		}
@@ -49,7 +53,7 @@ export default function App() {
 
 					<div className='w-screen h-screen flex flex-col overflow-hidden'>
 						<div className='w-full h-[10vh] '>
-							<Header />
+							<Header hidden={{ hidden, setHidden }} />
 						</div>
 						<div className="flex justify-center">
 							<DisplaySelector calType={calType} setCalType={setCalType} />
@@ -59,16 +63,23 @@ export default function App() {
 								{selectDisplay(calType)}
 							</div>
 							<div className="w-[15vw] h-full m-y-2 pr-2 rounded-sm">
-								<Settings />
+								<Settings hidden={{ hidden, setHidden }} visible={showEvent} setVisible={setshowEvent} />
 							</div>
 						</div>
+						{
+							showEvent ?
+								<NewEvent visible={showEvent} setVisible={setshowEvent} />
+								:
+								<>
+								</>
+						}
+
 					</div>
 			}
 		</>
 
 	)
 }
-
 
 
 // TODO:

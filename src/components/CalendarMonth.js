@@ -8,24 +8,22 @@ const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
-export default function Calendar(props) {
+export default function Calendar({ visible, setVisible }) {
 
     const [msg, setmsg] = useState('')
 
 
     const [show, setshow] = useState(false)
-    const [showEvent, setshowEvent] = useState(false)
     const [date, setdate] = useState(new Date());
+
+
 
 
     return (
         <>
-            {calendar(setdate, date, showEvent, setshowEvent)}
+            {calendar(setdate, date, visible, setVisible)}
         </>
     )
-
-
-
 
 
 
@@ -65,7 +63,6 @@ function calendar(setdate, date, showEvent, setshowEvent) {
                 </div>
 
             </div>
-            <NewEvent visible={showEvent} setVisible={setshowEvent} />
         </>
     )
 }

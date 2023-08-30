@@ -4,7 +4,7 @@ import ToggleLightDark from "./ToggleLightDark";
 
 
 
-function Header() {
+function Header({ hidden }) {
 
     return (
         <>
@@ -12,7 +12,7 @@ function Header() {
                 <Clock />
                 <div className="flex items-center justify-center ">
 
-                    <User />
+                    <User hidden={hidden} />
                 </div>
             </div>
         </>
