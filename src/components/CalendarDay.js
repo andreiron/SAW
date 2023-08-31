@@ -260,6 +260,20 @@ function displayHours() {
 }
 
 
+// TODO: controllo eventi:
+/*
+    -evento a cavallo di mezzanotte -> crea due eventi separati
+
+    somma di col-span degli eventi per ogni ora = 10 
+
+    stato per ogni ora -> spazio libero per ora successiva
+
+
+
+*/
+
+
+
 // {
 //     (!load ?
 //         <p className="w-full h-fit  "> akjfnkjdf</p>
