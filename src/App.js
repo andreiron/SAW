@@ -36,7 +36,6 @@ export default function App() {
 		}
 	}
 
-
 	//TODO div per dimensione variabile
 	return (
 		<>
@@ -49,7 +48,6 @@ export default function App() {
 					</div>
 
 					:
-
 
 					<div className='w-screen h-screen flex flex-col overflow-hidden'>
 						<div className='w-full h-[10vh] '>
@@ -89,6 +87,5 @@ export default function App() {
 	separare iscrizine con login
 		form per infdormazioni utente
 	link di metodi di registrazione
-
 
 */

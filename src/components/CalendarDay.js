@@ -90,8 +90,8 @@ function calendarDay({ date, title, load }) {
     let ret = []
     if (date.toDateString() == today().toDateString())
         ret.push(
-            <div className="bg-secondary rounded-md flex flex-col h-full w-full ">
-                <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+            <div className="bg-secondary rounded-md flex- h-full w-full ">
+                <p className="bg-accent rounded-lg flex flex-col justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
             </div>
         )
     else
@@ -99,20 +99,14 @@ function calendarDay({ date, title, load }) {
             <div className="bg-secondary rounded-md flex flex-col h-full w-full ">
                 <p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
 
-                <div className='flex flex-row justify-around items-center w-full h-fit'>
 
-                    <p className="bg-red-400">
-                        AM
-                    </p>
+                <div className=' flex flex-row relative justify-around items-center w-full h-full p-2 no-scroll no-scrollbar overflow-y-scroll overflow-x-hidden'>
 
-                    <p className="bg-blue-400">
-                        PM
-                    </p>
 
-                </div>
-                <div className='flex flex-row justify-around items-center w-full h-full p-2'>
 
-                    <div className="grid grid-cols-2 grid-rows-12 flex-col w-1/2 h-full rounded-xl ">
+
+
+                    <div className="  grid-cols-1 grid-rows-12 auto-rows-max gap-y-24 justify-around w-1/2 h-full rounded-xl p-2 ">
 
                         {
                             //TODO: capire come usare griglia per dispaly eventi
@@ -122,10 +116,21 @@ function calendarDay({ date, title, load }) {
                     </div>
 
 
-                    <div className="flex flex-col w-1/2 h-full ">
+                    <div className="flex  flex-col w-1/2 h-full ">
 
 
                     </div>
+
+                    <div className=" absolute inset-0 grid grid-rows-24 grid-cols-11 w-full h-fit rounded-xl p-2">
+
+                        {
+                            displayHours()
+                            //TODO: capire come usare griglia per dispaly eventi
+                        }
+
+
+                    </div>
+
 
                 </div>
 
@@ -147,6 +152,113 @@ function findToday({ setdate }) {
     }
 }
 
+function displayHours() {
+
+    var i = 0
+
+    return (
+        <>
+            <div className=" col-span-1 flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-10 border border-red-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-1 flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-5 border border-green-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-5 border border-green-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-1 row-span-1  flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-5 row-span-2 border border-red-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-5 row-span-1 border border-red-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-1 row-span-1  flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-5  w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-1 flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-10 border border-red-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+            <div className=" col-span-1 flex flex-col items-start w-full h-32 gap-6">
+                {
+                    ++i
+                }
+            </div>
+            <div className=" col-span-10 border border-green-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                ciao
+
+
+                {
+                    //insert event logic
+                }
+            </div>
+
+        </>
+    )
+
+
+}
+
 
 // {
 //     (!load ?
@@ -158,3 +270,81 @@ function findToday({ setdate }) {
 //     )
 
 // }
+
+
+
+
+
+
+
+
+
+// let ret = []
+
+// for (let i = 0; i < 48; i++) {
+
+//     if (i == 4) {
+//         ret.push(
+//             <>
+{/* <div className=" col-span-1 flex flex-col items-start w-full h-32 gap-6">
+    {i % 2 == 0 ? <p className="w-fit font-bold text-sm">
+        {(i / 2) + ':00'}
+    </p> : <p className="w-fit font-light text-xs">
+        {((i - 1) / 2) + ':30'}
+    </p>}
+</div> */}
+//                 <div className=" col-span-5 row-span-2 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+//                     ciao
+
+
+//                     {
+//                         //insert event logic
+//                     }
+//                 </div>
+                // <div className=" col-span-5 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+                //     ciao
+
+
+                //     {
+                //         //insert event logic
+                //     }
+                // </div>
+//             </>
+//         )
+
+//     }
+//     else {
+//         ret.push(
+//             <>
+//                 <div className=" flex flex-col items-start w-full h-32 gap-6">
+//                     {i % 2 == 0 ? <p className="w-fit font-bold text-sm">
+//                         {(i / 2) + ':00'}
+//                     </p> : <p className="w-fit font-light text-xs">
+//                         {((i - 1) / 2) + ':30'}
+//                     </p>}
+//                 </div>
+
+//                 <div className=" col-span-5 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+//                     ciao
+
+
+//                     {
+//                         //insert event logic
+//                     }
+//                 </div>
+//                 <div className=" col-span-5 w-full h-full flex flex-row items-center justify-start gap-4 px-6">
+//                     ciao
+
+
+//                     {
+//                         //insert event logic
+//                     }
+//                 </div>
+
+//             </>
+//         )
+//     }
+
+
+// }
+// return ret.map((r) => r)

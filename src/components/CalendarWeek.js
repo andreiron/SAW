@@ -27,7 +27,7 @@ function calendarRow(date) {
     let sunday = findSunday(date)
 
     let numberOfDays;
-    switch (date.getMonth() + 1) {
+    switch (sunday.getMonth() + 1) {
         case 1:
         case 3:
         case 5:
@@ -48,13 +48,23 @@ function calendarRow(date) {
             break;
     }
 
+
+
     for (let i = 0; i < 7; i++) {
         if (weekday[i] == weekday[today().getDay()] && sunday.getDate() + i == today().getDate() && today().getMonth() == sunday.getMonth() && today().getFullYear() == sunday.getFullYear()) {
             ret.push(
-                <div className="bg-secondary rounded-md flex justify-center ">
+                <div className="bg-secondary rounded-md flex flex-col justify-center max-h-full p-1 ">
                     <p className="bg-accent rounded-lg flex justify-center items-center font-extrabold text-xl h-fit w-full m-1 p-1">
-                        {weekday[i] + ' ' + (sunday.getDate() + i) <= numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i) % numberOfDays)}
+
+                        {
+
+                            ((sunday.getDate() + i) <= numberOfDays) ?
+                                (sunday.getDate() + i)
+                                :
+                                ((sunday.getDate() + i) % (numberOfDays))
+                        }
                     </p>
+                    <div className="w-full h-[200vh] bg-green-500 "></div>
                 </div>
             )
         }
@@ -62,7 +72,13 @@ function calendarRow(date) {
             ret.push(
                 <div className="bg-secondary rounded-md flex justify-center ">
                     <p className="rounded-lg flex justify-center items-center text-xl h-fit w-full m-1 p-1">
-                        {weekday[i] + ' ' + (sunday.getDate() + i) <= numberOfDays ? (sunday.getDate() + i) : ((sunday.getDate() + i) % numberOfDays)}
+                        {
+
+                            (sunday.getDate() + i) < numberOfDays + 1 ?
+                                (sunday.getDate() + i)
+                                :
+                                ((sunday.getDate() + i) % (numberOfDays))
+                        }
                     </p>
                 </div>
             )
