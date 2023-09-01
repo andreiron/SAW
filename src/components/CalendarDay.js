@@ -165,8 +165,8 @@ function displayHours({  }) {
     let span
     let rest
 
-    for (let i = 0; i < 2; i++) {
-        numberofEvent = 3
+    for (let i = 0; i < 24; i++) {
+        numberofEvent = 2
         howBigEvent = 1
         let maxbigEvent = 1
 
@@ -196,7 +196,7 @@ function displayHours({  }) {
             }
             maxbigEvent = maxbigEvent < howBigEvent ? howBigEvent : maxbigEvent
             ret.push(
-                <div className={" col-span-"+ span +" row-span-"+ howBigEvent + " bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
+                <div className={"col-span-"+ span +" row-span-"+ howBigEvent+ "  bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
             ciao
 
 
@@ -207,10 +207,14 @@ function displayHours({  }) {
             )
             
         }
+        console.log('maxbigEvent: ' + maxbigEvent)
+        console.log('span: ' + span)
+        console.log('rest: ' + rest)
+        console.log('next: ' + next)
         span = span - rest
         next = 10 - ((maxbigEvent - 1 ) * span)
     }
-    ret.push(
+    /*ret.push(
         <>
 
                 <div className=" flex flex-col items-start w-full h-32 gap-6">
@@ -220,7 +224,7 @@ function displayHours({  }) {
                 </div>
                 { // col-span-10 border border-red-500 w-full h-full flex flex-row items-center justify-start gap-4 px-6
     }
-                <div className={" col-span-"+ 1 +" bg-blue-400 border border-black  w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
+                <div className={" col-span-1  bg-blue-400 border border-black  w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
                     ciao
 
 
@@ -228,16 +232,7 @@ function displayHours({  }) {
                         //insert event logic
                     }
                 </div>
-                <div className={" col-span-"+ 2 +" bg-blue-400 border border-black  w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
-                    ciao
-
-
-                    {
-                        //insert event logic
-                    }
-                </div>
-            
-                <div className={" col-span-"+ 3 +" bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
+                <div className={" col-span-2 bg-blue-400 border border-black  w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
                     ciao
 
 
@@ -246,7 +241,16 @@ function displayHours({  }) {
                     }
                 </div>
             
-                <div className={" col-span-"+ 4 + " bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
+                <div className={" col-span-3 bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
+                    ciao
+
+
+                    {
+                        //insert event logic
+                    }
+                </div>
+            
+                <div className={" col-span-4 bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
                     ciao
 
 
@@ -257,7 +261,7 @@ function displayHours({  }) {
                 
 
             </>
-        )
+        )*/
 
 
     return ret.map((r) => r)
