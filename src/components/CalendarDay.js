@@ -3,6 +3,7 @@ import NewEvent from "./NewEvent"
 import { today } from "../utils/funz"
 import { db, getEvent } from "../firebase_setup/DBfirebase"
 import { doc, getDoc, collection, getDocs } from "firebase/firestore"
+import { twMerge } from 'tailwind-merge'
 
 
 
@@ -165,17 +166,18 @@ function displayHours({  }) {
     let span
     let rest
 
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 4; i++) {
         numberofEvent = 2
         howBigEvent = 1
-        let maxbigEvent = 1
+        let maxbigEvent = 0
 
         span = Math.floor(next / numberofEvent) 
+        console.log('span: ' + span)
         rest = next % numberofEvent
         
         ret.push(
             
-            <div className=" flex flex-col items-start w-full h-32 gap-6">
+            <div className=" col-start-1 col-span-1 flex flex-col items-start w-full h-32 gap-6">
             {i % 2 == 0 ? <p className="w-fit font-bold text-sm">
                 {(i / 2) + ':00'}
             </p> : <p className="w-fit font-light text-xs">
@@ -184,20 +186,28 @@ function displayHours({  }) {
         </div>
         )
         for (let j = 0; j < numberofEvent; j++) {
+            let a = true
+
             if (j == numberofEvent - 1){
                 span = span + rest
   
             }
-            if (i == 0 && j == 0){
+            if (i == 0 && j == 0 ){
                 howBigEvent = 2
+                maxbigEvent = 1
+                a= false
+
             }
             else{
                 howBigEvent = 1
             }
-            maxbigEvent = maxbigEvent < howBigEvent ? howBigEvent : maxbigEvent
+            let col = `col-span-` + span
+            let row = `row-span-${howBigEvent}`
             ret.push(
-                <div className={"col-span-"+ span +" row-span-"+ howBigEvent+ "  bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6"}>
-            ciao
+                <div className={ twMerge(col, row , "bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6" )}>
+            {
+                a ? "ciao" : "big"
+            }
 
 
             {
@@ -212,7 +222,7 @@ function displayHours({  }) {
         console.log('rest: ' + rest)
         console.log('next: ' + next)
         span = span - rest
-        next = 10 - ((maxbigEvent - 1 ) * span)
+        next = 10 - ((maxbigEvent  ) * span)
     }
     /*ret.push(
         <>

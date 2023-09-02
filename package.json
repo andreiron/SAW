@@ -12,6 +12,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-google-button": "^0.7.2",
     "react-scripts": "5.0.1",
+    "tailwind-merge": "^1.14.0",
     "ui": "^0.2.4",
     "web-vitals": "^2.1.4"
   },

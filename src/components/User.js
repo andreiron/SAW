@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { getCredentials, findUser } from '../firebase_setup/DBfirebase';
+import { getCredentials, findUserbyID } from '../firebase_setup/DBfirebase';
 
 
 export default function User({ hidden }) {
@@ -8,7 +8,7 @@ export default function User({ hidden }) {
     const [user, setUser] = useState("no user logged in")
 
     async function get() {
-        const q = await findUser(getCredentials())
+        const q = await findUserbyID(getCredentials())
         setUser(q)
     }
 

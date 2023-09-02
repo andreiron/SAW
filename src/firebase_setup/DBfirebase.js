@@ -27,7 +27,7 @@ const addEvent = async (title, location) => {
 	console.log("Document written with ID: ", docRef2.id);
 }
 
-const addUser = async ({ username, email, password }) => {
+async function addUser({ username, email, password }) {
 
 	if (auth.currentUser == null) {
 		console.log('no user logged in')
@@ -36,6 +36,8 @@ const addUser = async ({ username, email, password }) => {
 	}
 
 	let id = auth.currentUser.uid
+
+	let follow = []
 
 	if (username == "" || email == "" || password == "") {
 		throw new Error('empty fields')
@@ -47,13 +49,14 @@ const addUser = async ({ username, email, password }) => {
 		username,
 		email,
 		password,
-		id
+		id,
+		follow
 	});
 
 	console.log("Document written with ID: ", docRef.id);
 }
 
-async function findUser(id) {
+async function findUserbyID(id) {
 	console.log(id)
 	const q = query(collection(db, "users"), where("id", "==", id));
 	const docSnap = await getDocs(q);
@@ -67,6 +70,58 @@ async function findUser(id) {
 
 	return users[0].username
 
+}
+
+async function findUserbyEmail(email) {
+	console.log(email)
+	const q = query(collection(db, "users"), where("email", "==", email));
+	const docSnap = await getDocs(q);
+
+	const users = []
+
+	docSnap.forEach((doc) => {
+		users.push(doc.data());
+	});
+
+
+	return users
+
+}
+
+async function addFollow(follow) {
+
+	if (auth.currentUser == null) {
+		console.log('no user logged in')
+		throw new Error('no user logged in')
+
+	}
+
+	let id = auth.currentUser.uid
+
+	const q = query(collection(db, "users"), where("id", "==", id));
+	const docSnap = await getDocs(q);
+
+	const userFiles = []
+
+	docSnap.forEach((doc) => {
+		userFiles.push({ id: doc.id, data: doc.data() });
+	});
+
+	if (userFiles.length != 1)
+		throw new Error('user selection error')
+
+	if (!userFiles[0].data.follow)
+		userFiles[0].data.follow = []
+	if (!userFiles[0].data.follow.includes(follow))
+		userFiles[0].data.follow.push(follow)
+	else
+		throw new Error('already following')
+
+	console.log(userFiles[0].data)
+
+	await setDoc(doc(db, 'users', userFiles[0].id),
+		userFiles[0].data
+		, { merge: true });
 }
 
 async function loginWithGoogle() {
@@ -134,4 +189,4 @@ function getCredentials() {
 	}
 }
 export { getEvent, addEvent }
-export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUser, getCredentials, delUser }
+export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser, findUserbyEmail, addFollow }

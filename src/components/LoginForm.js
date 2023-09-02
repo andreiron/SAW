@@ -2,7 +2,7 @@ import { auth } from '../firebase_setup/ConfigFirebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
 import { GoogleButton } from 'react-google-button'
-import { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUser, getCredentials, delUser } from '../firebase_setup/DBfirebase'
+import { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser } from '../firebase_setup/DBfirebase'
 import { doc } from 'firebase/firestore'
 
 
