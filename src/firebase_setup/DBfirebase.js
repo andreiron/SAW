@@ -56,8 +56,23 @@ async function addUser({ username, email, password }) {
 	console.log("Document written with ID: ", docRef.id);
 }
 
+
+async function findUsersByIdList(idList) {
+
+	const q = query(collection(db, "users"), where("id", "in", idList));
+	const docSnap = await getDocs(q);
+
+	const users = []
+
+	docSnap.forEach((doc) => {
+		users.push(doc.data().username);
+	});
+
+	return Promise.resolve(users)
+}
+
 async function findUserbyID(id) {
-	console.log(id)
+
 	const q = query(collection(db, "users"), where("id", "==", id));
 	const docSnap = await getDocs(q);
 
@@ -215,3 +230,4 @@ function getCredentials() {
 }
 export { getEvent, addEvent }
 export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser, findUserbyEmail, addFollow, getFollows }
+export { findUsersByIdList }
