@@ -41,7 +41,7 @@ function Settings({ hidden, visible, setVisible }) {
 	return (
 		<>
 			{
-				<div>
+				<div className='h-full'>
 					{!hidden.hidden ?
 
 						<ul className="menu bg-opacity-60 bg-base-300 w-full h-full rounded-box text-lg pl-2 space-y-5 p-5">

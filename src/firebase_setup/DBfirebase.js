@@ -124,6 +124,31 @@ async function addFollow(follow) {
 		, { merge: true });
 }
 
+async function removeFollow(follow) {
+}
+
+async function getFollows() {
+
+	let id = auth.currentUser.uid
+
+	let follow = []
+
+	const q = query(collection(db, "users"), where("id", "==", id));
+	const docSnap = await getDocs(q);
+
+
+	docSnap.forEach((doc) => {
+		doc.data().follow.forEach((elem) => {
+			console.log(elem)
+			follow.push(elem)
+		})
+
+	})
+
+	return Promise.resolve(follow)
+
+}
+
 async function loginWithGoogle() {
 	console.log('signing in with google')
 	signInWithPopup(auth, provider)
@@ -189,4 +214,4 @@ function getCredentials() {
 	}
 }
 export { getEvent, addEvent }
-export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser, findUserbyEmail, addFollow }
+export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser, findUserbyEmail, addFollow, getFollows }
