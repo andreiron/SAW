@@ -9,11 +9,11 @@ import { addEvent } from "../firebase_setup/DBfirebase";
 
 
 export default function NewEvent({ visible, setVisible }) {
-    const [title, setTitle] = useState("")
-    const [location, setLocation] = useState("")
-    const [time, setTime] = useState("")
-    const [type, setType] = useState("")
-    const [description, setDescription] = useState("")
+    const [title, setTitle] = useState("Event Name")
+    const [location, setLocation] = useState("Event Location")
+    const [time, setTime] = useState("Event Time")
+    const [type, setType] = useState("Event Type")
+    const [description, setDescription] = useState("Event Description")
     const [date, setDate] = useState(today(true))
     const [privateEvent, setPrivateEvent] = useState(true)
 
@@ -38,33 +38,33 @@ export default function NewEvent({ visible, setVisible }) {
                 </div>
 
                 <div className="flex flex-col h-full space-y-4 mt-6 p-4 ">
-                    <input ref={titleRef} type="text" className="input w-full max-w-md bg-base-100 hover:bg-primary hover:placeholder:text-black" placeholder="Event Name"
-                        value={title} onChange={(e) => setTitle(e.target.value)}
+                    <input ref={titleRef} type="text" className="input w-full max-w-md bg-base-100 hover:bg-primary hover:placeholder:text-black"
+                        value={title} onChange={(e) => setTitle(e.target.value)} onClick={() => setTitle("")}
                     />
-                    <input ref={locationRef} type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black" placeholder="Event Location"
-                        value={location} onChange={(e) => setLocation(e.target.value)}
+                    <input ref={locationRef} type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black"
+                        value={location} onChange={(e) => setLocation(e.target.value)} onClick={() => setLocation("")}
                     />
                     <input type="date" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black"
-                        value={date} onChange={(e) => setDate(e.target.value)}
+                        value={date} onChange={(e) => setDate(e.target.value)} onClick={() => setDate("")}
                     />
-                    <input type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black" placeholder="Event Time"
-                        value={time} onChange={(e) => setTime(e.target.value)}
+                    <input type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black"
+                        value={time} onChange={(e) => setTime(e.target.value)} onClick={() => setTime("")}
                     />
-                    <input type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black" placeholder="Event Type"
-                        value={type} onChange={(e) => setType(e.target.value)}
+                    <input type="text" className="input w-full max-w-md hover:bg-primary hover:placeholder:text-black"
+                        value={type} onChange={(e) => setType(e.target.value)} onClick={() => setType("")}
                     />
                     <span className="input w-full max-w-md flex flex-row justify-between items-center rounded-md  ">
 
 
                         {privateEvent ? "Private Event" : "Public Event"}
-                        <input type="checkbox" className="toggle bg-primary toggle-accent " placeholder="Event Type"
+                        <input type="checkbox" className="toggle toggle-accent " placeholder="Event Type"
                             value={privateEvent} onChange={(e) => setPrivateEvent(!privateEvent)}
                         />
 
                     </span>
 
-                    <textarea type="text" className="input block w-full max-w-md h-1/3 p-2 hover:bg-primary hover:placeholder:text-black" placeholder="Event Description"
-                        value={description} onChange={(e) => setDescription(e.target.value)}
+                    <textarea type="text" className="input block w-full max-w-md h-1/3 p-2 hover:bg-primary hover:placeholder:text-black"
+                        value={description} onChange={(e) => setDescription(e.target.value)} onClick={() => setDescription("")}
                     />
 
 

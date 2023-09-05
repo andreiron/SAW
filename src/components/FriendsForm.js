@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { findUserbyEmail, addFollow, getFollows, findUserbyID, findUsersByIdList, removeFollow } from '../firebase_setup/DBfirebase'
+import { findUserbyEmail, addFollow, getFollows, findUsersByIdList, removeFollow } from '../firebase_setup/DBfirebase'
 
+
+
+
+//TODO: add toast for error or success
 
 function FriendsForm({ showFriends, setShowFriends }) {
 
@@ -8,10 +12,7 @@ function FriendsForm({ showFriends, setShowFriends }) {
 	const [friendFound, setFriendFound] = useState(false)
 	const [friendInfo, setfriendInfo] = useState([])
 	const [addFriend, setAddFriend] = useState(false)
-	const [follow, setFollow] = useState(false)
-	const [followArr, setFollowArr] = useState([])
 	const [followInfo, setFollowInfo] = useState([])
-	const [update, setUpdate] = useState(false)
 
 
 	const f = async () => {
@@ -125,7 +126,6 @@ function infoFollow(item) {
 			<div className="flex flex-row w-full justify-between items-center border-2 border-accent p-2">
 				<div className="flex flex-col items-start justify-between">
 					<h1 className="text-md font-bold">{elem.username}</h1>
-					<h2 className="text-md font-bold">{elem.id}</h2>
 
 				</div>
 				<button className="btn bg-accent border-0" onClick={() => { removeFollow(elem.id) }}>
@@ -140,15 +140,6 @@ function infoFollow(item) {
 	</>
 
 }
-
-
-
-
-
-
-
-
-
 
 
 function formAddFriend(setShowFriends, friend, setFriend, friendInfo, setfriendInfo, friendFound, setFriendFound, addFriend, setAddFriend) {
