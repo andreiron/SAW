@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { getFirestore, collection, getDocs, addDoc, setDoc, doc, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, setDoc, doc, query, where, updateDoc } from "firebase/firestore";
 import { db, auth } from "./ConfigFirebase";
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 
@@ -134,12 +134,51 @@ async function addFollow(follow) {
 
 	console.log(userFiles[0].data)
 
-	await setDoc(doc(db, 'users', userFiles[0].id),
+	await updateDoc(doc(db, 'users', userFiles[0].id),
 		userFiles[0].data
 		, { merge: true });
 }
 
-async function removeFollow(follow) {
+async function removeFollow(unfollowId) {
+
+
+	if (auth.currentUser == null) {
+		console.log('no user logged in')
+		throw new Error('no user logged in')
+
+	}
+
+	let id = auth.currentUser.uid
+
+	const q = query(collection(db, "users"), where("id", "==", id));
+	const docSnap = await getDocs(q);
+
+	let userFiles = []
+	let docId
+
+	docSnap.forEach((doc) => {
+		userFiles = doc.data().follow
+		docId = doc.id
+	});
+
+
+	if (userFiles.length <= 0)
+		throw new Error('no follows')
+
+	if (!userFiles.includes(unfollowId))
+		throw new Error('not following')
+
+
+	if (userFiles.includes(unfollowId)) {
+		userFiles.splice(userFiles.indexOf(unfollowId), 1)
+
+	}
+
+	await updateDoc(doc(db, 'users', docId), {
+		follow: userFiles
+	});
+
+
 }
 
 async function getFollows() {
@@ -154,7 +193,6 @@ async function getFollows() {
 
 	docSnap.forEach((doc) => {
 		doc.data().follow.forEach((elem) => {
-			console.log(elem)
 			follow.push(elem)
 		})
 
@@ -230,4 +268,4 @@ function getCredentials() {
 }
 export { getEvent, addEvent }
 export { loginWithGoogle, loginWithEmail, createEmailAccount, addUser, findUserbyID, getCredentials, delUser, findUserbyEmail, addFollow, getFollows }
-export { findUsersByIdList }
+export { findUsersByIdList, removeFollow }

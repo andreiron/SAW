@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { findUserbyEmail, addFollow, getFollows, findUserbyID, findUsersByIdList } from '../firebase_setup/DBfirebase'
+import { findUserbyEmail, addFollow, getFollows, findUserbyID, findUsersByIdList, removeFollow } from '../firebase_setup/DBfirebase'
 
 
 function FriendsForm({ showFriends, setShowFriends }) {
@@ -38,8 +38,19 @@ function FriendsForm({ showFriends, setShowFriends }) {
 		// 		console.log(e)
 		// 	})
 		const followIDList = await getFollows()
+		const followUsernameList = await findUsersByIdList(followIDList)
+		const tmparr = []
 
-		setFollowInfo(await findUsersByIdList(followIDList))
+		for (let i = 0; i < followUsernameList.length; i++) {
+
+			tmparr.push({ id: followIDList[i], username: followUsernameList[i] })
+
+
+		}
+
+
+
+		setFollowInfo(tmparr)
 
 	}
 
@@ -50,6 +61,7 @@ function FriendsForm({ showFriends, setShowFriends }) {
 		f()
 
 	}, [])
+
 
 
 
@@ -112,9 +124,11 @@ function infoFollow(item) {
 		{item.length > 0 && item.map((elem) =>
 			<div className="flex flex-row w-full justify-between items-center border-2 border-accent p-2">
 				<div className="flex flex-col items-start justify-between">
-					<h1 className="text-md font-bold">{elem}</h1>
+					<h1 className="text-md font-bold">{elem.username}</h1>
+					<h2 className="text-md font-bold">{elem.id}</h2>
+
 				</div>
-				<button className="btn bg-accent border-0" onClick={() => { }}>
+				<button className="btn bg-accent border-0" onClick={() => { removeFollow(elem.id) }}>
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
 						<path strokeLinecap="round" strokeLinejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
 					</svg>
