@@ -17,26 +17,24 @@ async function getEvent() {
 
 }
 
-//TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! add event object 
+
 
 
 const addEvent = async (fields) => {
 	let docRef2
 
-	Object.entries(fields).forEach(([key, field]) => {
-		if (field == "") {
-			throw new Error('Empty fields: ' + key.toUpperCase())
-		}
-	})
-
-	const { title, location } = fields
+	const { title, location, date, startTime, endTime, privateEvent } = fields
 
 	docRef2 = await addDoc(collection(db, "events"), {
 		title,
 		location,
+		date,
+		startTime,
+		endTime,
+		privateEvent
+
 	});
 
-	console.log("Document written with ID: ", docRef2.id);
 }
 
 async function addUser({ username, email, password }) {

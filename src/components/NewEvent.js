@@ -13,7 +13,9 @@ import { type } from "@testing-library/user-event/dist/type";
 export default function NewEvent({ visible, setVisible }) {
     const [title, setTitle] = useState("")
     const [location, setLocation] = useState("")
-    const [time, setTime] = useState("")
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
+
     const [type, setType] = useState("")
     const [description, setDescription] = useState("")
     const [date, setDate] = useState(today(true))
@@ -67,17 +69,43 @@ export default function NewEvent({ visible, setVisible }) {
                     </label>
 
                     <label className="flex flex-col w-full max-w-md">
-                        Time:
-                        <input type="text" className="input w-full max-w-md  hover:placeholder:text-black"
-                            value={time} onChange={(e) => setTime(e.target.value)} onClick={() => setTime("")}
-                        />
+                        Starting Time:
+
+                        <select className="select select-bordered w-full max-w-md hover:placeholder:text-black" onChange={(e) => setStartTime(e.target.value)}>
+                            <option value="" selected disabled hidden></option>
+                            {
+                                [...Array(48).keys()].map((i) => {
+                                    if (i % 2 == 0) {
+                                        return <option value={i}>{i / 2}:00</option>
+                                    }
+                                    else {
+                                        return <option value={i}>{Math.floor(i / 2)}:30</option>
+                                    }
+
+                                })
+                            }
+                        </select >
+
                     </label>
 
                     <label className="flex flex-col w-full max-w-md">
-                        Type:
-                        <input type="text" className="input w-full max-w-md hover:placeholder:text-black"
-                            value={type} onChange={(e) => setType(e.target.value)} onClick={() => setType("")}
-                        />
+                        Ending Time:
+
+                        <select className="select select-bordered w-full max-w-md hover:placeholder:text-black" onChange={(e) => setEndTime(e.target.value)}>
+                            <option value="" selected disabled hidden></option>
+                            {
+                                [...Array(48).keys()].map((i) => {
+                                    if (i % 2 == 0) {
+                                        return <option value={i}>{i / 2}:00</option>
+                                    }
+                                    else {
+                                        return <option value={i}>{Math.floor(i / 2)}:30</option>
+                                    }
+
+                                })
+                            }
+                        </select >
+
                     </label>
 
                     <label className="flex flex-col w-full max-w-md">
@@ -97,7 +125,7 @@ export default function NewEvent({ visible, setVisible }) {
 
 
                 </div>
-                <button className="btn btn-accent m-4 " onClick={() => addNewEvent({ title, location }, alert, setAlert)}>Add Event</button>
+                <button className="btn btn-accent m-4 " onClick={() => addNewEvent({ title, location, date, startTime, endTime, privateEvent }, alert, setAlert)}>Add Event</button>
             </div>
 
             < div id='toast' className="toast toast-end w-full justify-center items-center" >
@@ -122,23 +150,34 @@ Description:
 
 function addNewEvent(fields, alert, setAlert) {
 
-    let error = false
 
 
+    try {
+        Object.entries(fields).forEach(([key, field]) => {
+            if (field == "") {
+                throw new Error('Empty fields: ' + key.toUpperCase())
 
+            }
+        })
 
+        if (fields.startTime >= fields.endTime) {
+            console.log("dio cane " + fields.startTime + " ; " + fields.endTime)
+            throw new Error('Start time must be before end time')
 
-    if (!error) {
-
-
+        }
         addEvent(fields)
             .then(() => {
+                console.log("Event added")
                 addAlert("Event added", "success", alert, setAlert)
 
             })
             .catch((e) => {
-                addAlert(e.message, "error", alert, setAlert)
+                throw new Error(e.message)
             })
+
+
+    } catch (e) {
+        addAlert(e.message, "error", alert, setAlert)
     }
 
 }
