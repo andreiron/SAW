@@ -194,7 +194,7 @@ function displayHours({  }) {
             }
             if (i == 0 && j == 0 ){
                 howBigEvent = 2
-                maxbigEvent = 1
+                maxbigEvent = howBigEvent -1
                 a= false
 
             }
@@ -203,8 +203,10 @@ function displayHours({  }) {
             }
             let col = `col-span-` + span
             let row = `row-span-${howBigEvent}`
+            //`${row}` 
+            
             ret.push(
-                <div className={ twMerge(col, row , "bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6" )}>
+                <div className={ twMerge(`${col}` , row , "bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6" )}>
             {
                 a ? "ciao" : "big"
             }
