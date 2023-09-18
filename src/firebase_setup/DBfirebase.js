@@ -17,13 +17,25 @@ async function getEvent() {
 
 }
 
-const addEvent = async (title, location) => {
+//TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! add event object 
 
-	console.log(title + " " + location)
-	const docRef2 = await addDoc(collection(db, "events"), {
+
+const addEvent = async (fields) => {
+	let docRef2
+
+	Object.entries(fields).forEach(([key, field]) => {
+		if (field == "") {
+			throw new Error('Empty fields: ' + key.toUpperCase())
+		}
+	})
+
+	const { title, location } = fields
+
+	docRef2 = await addDoc(collection(db, "events"), {
 		title,
 		location,
 	});
+
 	console.log("Document written with ID: ", docRef2.id);
 }
 
