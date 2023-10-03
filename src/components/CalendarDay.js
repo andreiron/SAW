@@ -16,6 +16,8 @@ export default function Calendar(props) {
 	const [load, setLoad] = useState(false)
 	const [concurrent, setConcurrent] = useState([])
 
+	const [eventArray, setEventArray] = useState([])
+
 	const [next, setNext] = useState(10)
 
 	const [events, setEvents] = useState([])
@@ -28,8 +30,15 @@ export default function Calendar(props) {
 	}
 
 	useEffect(() => {
+		setEventArray([])
 		get()
+		fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 	}, [date])
+
+	useEffect(() => {
+		setEventArray([])
+		fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
+	}, [])
 
 	return (
 		<>
@@ -47,12 +56,30 @@ export default function Calendar(props) {
 				setEvents,
 				concurrent,
 				setConcurrent,
+				eventArray,
+				setEventArray,
 			})}
 		</>
 	)
 }
 
-function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, load, next, setNext, events, setEvents, concurrent, setConcurrent }) {
+function calendar({
+	setdate,
+	date,
+	calendarDay,
+	showEvent,
+	setshowEvent,
+	title,
+	load,
+	next,
+	setNext,
+	events,
+	setEvents,
+	concurrent,
+	setConcurrent,
+	eventArray,
+	setEventArray,
+}) {
 	return (
 		<>
 			<div className="w-full h-full relative flex items-center justify-center flex-col mt-2">
@@ -115,6 +142,8 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
 						setEvents,
 						concurrent,
 						setConcurrent,
+						eventArray,
+						setEventArray,
 					})}
 				</div>
 			</div>
@@ -123,7 +152,7 @@ function calendar({ setdate, date, calendarDay, showEvent, setshowEvent, title, 
 	)
 }
 
-function calendarDay({ date, title, load, next, setNext, events, setEvents, concurrent, setConcurrent }) {
+function calendarDay({ date, title, load, next, setNext, events, setEvents, concurrent, setConcurrent, eventArray, setEventArray }) {
 	let ret = []
 	if (date.toDateString() == today().toDateString())
 		ret.push(
@@ -131,7 +160,7 @@ function calendarDay({ date, title, load, next, setNext, events, setEvents, conc
 				<p className="bg-accent rounded-lg flex flex-col justify-center items-center font-extrabold text-xl h-fit w-fit p-2">
 					{weekday[date.getDay()]}
 				</p>
-				{displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent })}
+				{displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })}
 			</div>
 		)
 	else
@@ -139,15 +168,15 @@ function calendarDay({ date, title, load, next, setNext, events, setEvents, conc
 			<div className="bg-secondary rounded-md flex flex-col h-full w-full ">
 				<p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
 
-				{displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent })}
+				{displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })}
 			</div>
 		)
 	return <>{ret.map((e) => e)}</>
 }
 
-function displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent }) {
+function displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray }) {
 	return (
-		<div className=" flex flex-row relative justify-around items-center w-full h-full p-2 no-scroll no-scrollbar overflow-y-scroll overflow-x-hidden">
+		<div className=" flex flex-row relative justify-around items-center w-full h-full mt-2 p-2 no-scroll no-scrollbar overflow-y-scroll overflow-x-hidden">
 			<div className="  grid-cols-1 grid-rows-12 auto-rows-max gap-y-24 justify-around w-1/2 h-full rounded-xl p-2 ">
 				{
 					//TODO: capire come usare griglia per dispaly eventi
@@ -157,9 +186,19 @@ function displayEvents({ next, setNext, events, setEvents, title, concurrent, se
 			<div className="flex  flex-col w-1/2 h-full "></div>
 
 			<div className="absolute inset-0 grid grid-rows-24 grid-cols-11 w-full h-fit rounded-xl p-2">
+				{[...Array(48).keys()].map((i) => (
+					<div className="  col-start-1 col-span-1 flex flex-col items-start w-full h-32 gap-6">
+						{i % 2 == 0 ? (
+							<p className="w-fit font-bold text-sm">{i / 2 + ":00"}</p>
+						) : (
+							<p className="w-fit font-light text-xs">{(i - 1) / 2 + ":30"}</p>
+						)}
+					</div>
+				))}
 				{
-					displayHours({ next, setNext, events, setEvents, title, concurrent, setConcurrent })
+					displayHours({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 					//TODO: capire come usare griglia per dispaly eventi
+					//fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 				}
 			</div>
 		</div>
@@ -172,9 +211,26 @@ function findToday({ setdate }) {
 	}
 }
 
-function displayHours({ next, setNext, events, setEvents, title, concurrent, setConcurrent }) {
+function fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray }) {
+	let tempArr = [...eventArray]
+	let tempArrConc = findConcurrent(events)
+
+	events.map((e) => {
+		tempArr.push({
+			event: e,
+			span: 10 / tempArrConc[e.startTime].n,
+			start: tempArrConc[e.startTime].index * (10 / tempArrConc[e.startTime].n) + 2,
+		})
+		tempArrConc[e.startTime].index++
+	})
+
+	setEventArray(tempArr)
+}
+
+function displayHours({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray }) {
 	let ret = []
-	setConcurrent(findConcurrent(events))
+	//setConcurrent(findConcurrent(events))
+	//fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 
 	if (events == null) {
 		return <></>
@@ -182,16 +238,6 @@ function displayHours({ next, setNext, events, setEvents, title, concurrent, set
 
 	return (
 		<>
-			{[...Array(48).keys()].map((i) => (
-				<div className="  col-start-1 col-span-1 flex flex-col items-start w-full h-32 gap-6">
-					{i % 2 == 0 ? (
-						<p className="w-fit font-bold text-sm">{i / 2 + ":00"}</p>
-					) : (
-						<p className="w-fit font-light text-xs">{(i - 1) / 2 + ":30"}</p>
-					)}
-				</div>
-			))}
-
 			{
 				<>
 					<div className="bg-green-400 row-start-1 row-end-4 col-start-2 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-span-full ">
@@ -219,33 +265,34 @@ function displayHours({ next, setNext, events, setEvents, title, concurrent, set
 					{e.title}
 				</div>;
 			})} */}
-			{events.length > 0 &&
-				events.map((t) => {
+			{eventArray.length > 0 &&
+				eventArray.map((t) => {
 					const row = ``
 					let tempobj = [...concurrent]
 
-					const span = 2 + (10 / concurrent[t.startTime].n) * concurrent[t.startTime].index
-					console.log("start" + t.startTime + " ;" + t.endTime)
-					for (let i = t.startTime; i <= t.endTime; i++) {
-						console.log("i:" + i)
-						tempobj[i] = { n: concurrent[i].n, index: concurrent[i].index + 1 }
-					}
-					setConcurrent(tempobj)
-					console.log("ciao:" + Number(concurrent[11].index))
+					// const span = 2 + (10 / concurrent[t.startTime].n) * concurrent[t.startTime].index
+					// console.log("start" + t.startTime + " ;" + t.endTime)
+					// for (let i = t.startTime; i <= t.endTime; i++) {
+					// 	console.log("i:" + i)
+					// 	tempobj[i] = { n: concurrent[i].n, index: concurrent[i].index + 1 }
+					// }
+					//setConcurrent(tempobj)
+					//console.log("ciao:" + Number(concurrent[11].index))
 					return (
 						<div
 							style={{
-								gridRowStart: `${t.startTime}`,
-								gridRowEnd: `${t.endTime}`,
-								gridColumnStart: `${span}`,
-								gridColumnEnd: `${10 / concurrent[t.startTime].n + 2}`,
-								zIndex: `${concurrent[t.startTime].n}`,
+								gridRowStart: `${t.event.startTime}`,
+								gridRowEnd: `${t.event.endTime}`,
+								gridColumnStart: `${t.start}`,
+								gridColumnEnd: `${t.start + t.span}`,
+								//zIndex: `${concurrent[t.event.startTime].n}`,
 							}}
-							className={twMerge(
+							className={
 								"bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-start-2"
-							)}
+							}
 						>
-							<p>{t.title}</p>
+							<p>{t.event.title}</p>
+							<p>{t.span}</p>
 						</div>
 					)
 				})}

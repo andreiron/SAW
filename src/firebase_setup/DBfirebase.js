@@ -50,12 +50,13 @@ const getEventsbyQuery = async (query) => {
 
 const getEventsbyDate = async (date) => {
 	let events = []
-	const q = query(collection(db, "events"), where("date", "==", date), where("privateEvent", "==", false))
+	const q = query(collection(db, "events"), where("date", "==", date))
 	const queryEvents = await getDocs(q)
 	queryEvents.forEach((doc) => {
 		events.push(doc.data())
 	})
 
+	console.log("events: ", events)
 	return Promise.resolve(events)
 }
 
