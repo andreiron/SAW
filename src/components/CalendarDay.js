@@ -9,7 +9,7 @@ import { auth } from "../firebase_setup/ConfigFirebase"
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-export default function Calendar(props) {
+export default function Calendar({ visible, setVisible }) {
 	const [showEvent, setshowEvent] = useState(false)
 	const [date, setdate] = useState(new Date())
 	const [title, setTitle] = useState([])
@@ -171,8 +171,8 @@ function calendarDay({ date, title, load, next, setNext, events, setEvents, conc
 		)
 	else
 		ret.push(
-			<div className="bg-secondary rounded-md flex flex-col h-full w-full ">
-				<p className="flex justify-center items-center text-xl h-fit w-full m-1 p-2">{weekday[date.getDay()]}</p>
+			<div className="bg-secondary rounded-md flex flex-col justify-center items-center h-full w-full p-2 ">
+				<p className="flex justify-center items-center text-xl h-fit w-full p-2">{weekday[date.getDay()]}</p>
 
 				{displayEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })}
 			</div>
@@ -193,7 +193,7 @@ function displayEvents({ next, setNext, events, setEvents, title, concurrent, se
 
 			<div className="absolute inset-0 grid grid-rows-24 grid-cols-11 w-full h-fit rounded-xl p-2">
 				{[...Array(48).keys()].map((i) => (
-					<div className="  col-start-1 col-span-1 flex flex-col items-start w-full h-32 gap-6">
+					<div className="  col-start-1 col-span-1 flex flex-col items-start w-full h-24 gap-6">
 						{i % 2 == 0 ? (
 							<p className="w-fit font-bold text-sm">{i / 2 + ":00"}</p>
 						) : (
@@ -247,20 +247,6 @@ function displayHours({ next, setNext, events, setEvents, title, concurrent, set
 
 	return (
 		<>
-			{
-				<>
-					<div className="bg-green-400 row-start-1 row-end-4 col-start-2 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-span-full ">
-						<p>ciao</p>
-					</div>
-					<div className="bg-red-400 row-start-3 col-start-4 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-span-full">
-						<p>ciao</p>
-					</div>
-					<div className="bg-purple-400 row-start-[10] row-[span_2_/_span_2] col-start-4 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6">
-						<p>ciao</p>
-					</div>
-				</>
-			}
-
 			{/* {events.map((e) => {
 				<div className="bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6">
 					{e.title}
