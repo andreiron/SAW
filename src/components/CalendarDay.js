@@ -30,13 +30,19 @@ export default function Calendar(props) {
 	}
 
 	useEffect(() => {
-		setEventArray([])
+		setEvents([])
 		get()
-		fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 	}, [date])
 
 	useEffect(() => {
 		setEventArray([])
+		fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
+	}, [events])
+
+	useEffect(() => {
+		setEventArray([])
+		setEvents([])
+		get()
 		fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray })
 	}, [])
 
@@ -212,7 +218,7 @@ function findToday({ setdate }) {
 }
 
 function fillEvents({ next, setNext, events, setEvents, title, concurrent, setConcurrent, eventArray, setEventArray }) {
-	let tempArr = [...eventArray]
+	let tempArr = []
 	let tempArrConc = findConcurrent(events)
 
 	events.map((e) => {
@@ -220,8 +226,11 @@ function fillEvents({ next, setNext, events, setEvents, title, concurrent, setCo
 			event: e,
 			span: 10 / tempArrConc[e.startTime].n,
 			start: tempArrConc[e.startTime].index * (10 / tempArrConc[e.startTime].n) + 2,
+			index: tempArrConc[e.startTime].index,
 		})
-		tempArrConc[e.startTime].index++
+		for (let i = e.startTime; i <= e.endTime; i++) {
+			tempArrConc[i].index++
+		}
 	})
 
 	setEventArray(tempArr)
@@ -245,14 +254,6 @@ function displayHours({ next, setNext, events, setEvents, title, concurrent, set
 					</div>
 					<div className="bg-red-400 row-start-3 col-start-4 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-span-full">
 						<p>ciao</p>
-						<button
-							className="btn btn-primary"
-							onClick={() => {
-								findConcurrent(events)
-							}}
-						>
-							Find Concurrent
-						</button>
 					</div>
 					<div className="bg-purple-400 row-start-[10] row-[span_2_/_span_2] col-start-4 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6">
 						<p>ciao</p>
@@ -265,37 +266,54 @@ function displayHours({ next, setNext, events, setEvents, title, concurrent, set
 					{e.title}
 				</div>;
 			})} */}
-			{eventArray.length > 0 &&
-				eventArray.map((t) => {
-					const row = ``
-					let tempobj = [...concurrent]
+			{eventArray.map((t) => {
+				const row = ``
+				// const span = 2 + (10 / concurrent[t.startTime].n) * concurrent[t.startTime].index
+				// for (let i = t.startTime; i <= t.endTime; i++) {
+				// 	tempobj[i] = { n: concurrent[i].n, index: concurrent[i].index + 1 }
+				// }
+				//setConcurrent(tempobj)
 
-					// const span = 2 + (10 / concurrent[t.startTime].n) * concurrent[t.startTime].index
-					// console.log("start" + t.startTime + " ;" + t.endTime)
-					// for (let i = t.startTime; i <= t.endTime; i++) {
-					// 	console.log("i:" + i)
-					// 	tempobj[i] = { n: concurrent[i].n, index: concurrent[i].index + 1 }
-					// }
-					//setConcurrent(tempobj)
-					//console.log("ciao:" + Number(concurrent[11].index))
-					return (
-						<div
-							style={{
-								gridRowStart: `${t.event.startTime}`,
-								gridRowEnd: `${t.event.endTime}`,
-								gridColumnStart: `${t.start}`,
-								gridColumnEnd: `${t.start + t.span}`,
-								//zIndex: `${concurrent[t.event.startTime].n}`,
-							}}
-							className={
-								"bg-blue-400 border border-black w-full h-full flex flex-row items-center justify-start gap-4 px-6 col-start-2"
-							}
-						>
-							<p>{t.event.title}</p>
-							<p>{t.span}</p>
-						</div>
-					)
-				})}
+				let rand = (Math.floor(Math.random() * 4) + Math.floor(Math.random() * 4)) % 4
+				let bg = ""
+
+				switch (rand) {
+					case 0:
+						bg = "MediumSeaGreen"
+						break
+					case 1:
+						bg = "DodgerBlue"
+						break
+					case 2:
+						bg = "Orange"
+						break
+					case 3:
+						bg = "Tomato"
+						break
+				}
+
+				return (
+					<div
+						style={{
+							gridRowStart: `${t.event.startTime}`,
+							gridRowEnd: `${t.event.endTime}`,
+							gridColumnStart: `${t.start}`,
+							gridColumnEnd: `${t.start + t.span}`,
+							zIndex: `${t.index}`,
+							backgroundColor: `${bg}`,
+						}}
+						className={
+							" rounded-md shadow-md shadow-primary w-full h-full flex flex-row items-start justify-start gap-4 px-6 col-start-2"
+						}
+					>
+						<h1>{t.event.title}</h1>
+
+						<h3>{t.event.date} </h3>
+
+						<p>{t.span}</p>
+					</div>
+				)
+			})}
 		</>
 	)
 

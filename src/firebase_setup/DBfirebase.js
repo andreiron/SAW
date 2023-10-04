@@ -56,7 +56,6 @@ const getEventsbyDate = async (date) => {
 		events.push(doc.data())
 	})
 
-	console.log("events: ", events)
 	return Promise.resolve(events)
 }
 
