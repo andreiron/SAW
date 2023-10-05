@@ -19,11 +19,12 @@ export default function App() {
 	const [login, setLogin] = useState(false)
 	const [showEvent, setshowEvent] = useState(false)
 	const [hidden, setHidden] = useState(false)
+	const [date, setDate] = useState(new Date())
 
 	const selectDisplay = () => {
 		switch (calType) {
 			case "month":
-				return <CalendarMonth visible={showEvent} setVisible={setshowEvent} />
+				return <CalendarMonth visible={showEvent} setVisible={setshowEvent} setdate={setDate} />
 			case "week":
 				return <CalendarWeek visible={showEvent} setVisible={setshowEvent} />
 			case "day":
